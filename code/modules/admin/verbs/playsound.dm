@@ -42,6 +42,29 @@ var/list/sounds_cache = list()
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
+	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = GLOB.admin_sound_channel)
+	uploaded_sound.priority = 250
+
+	var/volume = 100
+	while (TRUE)
+		volume = input(src, "Sound volume (0 - 100)", "Volume", volume) as null|num
+		if (isnull(volume))
+			return
+
+		volume =  round(clamp(volume, 0, 100))
+		to_chat(src, "Sound volume set to [volume]%")
+		uploaded_sound.volume =volume
+		var/choice = alert("Song: [S]", "Play Sound" , "Play", "Preview", "Cancel")
+
+		if (choice == "Cancel")
+			return
+
+		if (choice == "Preview")
+			sound_to(src, uploaded_sound)
+
+		if (choice == "Play")
+			break
+
 	log_admin("[key_name(src)] played a local sound [S]")
 	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
