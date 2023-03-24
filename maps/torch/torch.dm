@@ -173,8 +173,6 @@
 	#include "../event/iccgn_ship/icgnv_hound.dm"
 	#include "../event/sfv_arbiter/sfv_arbiter.dm"
 
-	#include "../away/verne/verne.dm"
-	#include "../away/ascent_caulship/_ascent_caulship.dm"
 
 	#define using_map_DATUM /datum/map/torch
 
